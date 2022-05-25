@@ -1,44 +1,48 @@
 const app = new PIXI.Application({
-  width: 208, height: 299, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
+  width: 208, height: 299, backgroundColor: 0xd7d7d7, resolution: window.devicePixelRatio || 1,
 });
+
+const renderer = PIXI.autoDetectRenderer(208, 299, {preserveDrawingBuffer: true});
 document.body.appendChild(app.view);
 
 const container = new PIXI.Container();
+const captureList = document.getElementById('captureList')
 
 app.stage.addChild(container);
 const DIR = 'https://raw.githubusercontent.com/KazuyaAoyagi/GenerativeArtGenrator/main/images/'
 
 let num = 0
+return
 setInterval(() => {
   container.removeChildren()
-  num = Math.floor(Math.random() * 4)
-  let skin = new PIXI.Sprite.from(`${DIR}skin_${num === 0 ? 1:num}.png`, {
+  num = Math.floor(Math.random() * 3) + 1
+  let skin = new PIXI.Sprite.from(`${DIR}skin_${num}.png?v=11`, {
     resourceOptions: {
       crossorigin: 'anonymous'
     }
   });
-  num = Math.floor(Math.random() * 4)
-  let eye = new PIXI.Sprite.from(`${DIR}eye_${num === 0 ? 1:num}.png`, {
+  num = Math.floor(Math.random() * 3) + 1
+  let eye = new PIXI.Sprite.from(`${DIR}eye_${num}.png?v=11`, {
     resourceOptions: {
       crossorigin: 'anonymous'
     }
   });
-  num = Math.floor(Math.random() * 4)
-  let nose = new PIXI.Sprite.from(`${DIR}nose_${num === 0 ? 1:num}.png`, {
-    resourceOptions: {
-      crossorigin: 'anonymous'
-    }
-  });
-
-  num = Math.floor(Math.random() * 4)
-  let mouse = new PIXI.Sprite.from(`${DIR}mouse_${num === 0 ? 1:num}.png`, {
+  num = Math.floor(Math.random() * 3) + 1
+  let nose = new PIXI.Sprite.from(`${DIR}nose_${num}.png?v=11`, {
     resourceOptions: {
       crossorigin: 'anonymous'
     }
   });
 
-  num = Math.floor(Math.random() * 4)
-  let head = new PIXI.Sprite.from(`${DIR}head_${num === 0 ? 1:num}.png`, {
+  num = Math.floor(Math.random() * 3) + 1
+  let mouse = new PIXI.Sprite.from(`${DIR}mouse_${num}.png?v=11`, {
+    resourceOptions: {
+      crossorigin: 'anonymous'
+    }
+  });
+
+  num = Math.floor(Math.random() * 3) + 1
+  let head = new PIXI.Sprite.from(`${DIR}head_${num}.png?v=11`, {
     resourceOptions: {
       crossorigin: 'anonymous'
     }
@@ -68,4 +72,8 @@ setInterval(() => {
   container.addChild(nose)
   container.addChild(mouse)
   container.addChild(head)
-}, 100)
+
+  var imgUrl = renderer.view.toDataURL("image/png");
+  document.getElementById('captureImg').src = imgUrl.replace("image/png", "image/octet-stream")
+  // renderer.render(stage);
+}, 1000)
